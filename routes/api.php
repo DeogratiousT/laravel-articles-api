@@ -17,3 +17,38 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::apiResource('articles', ArticleController::class);
+Route::apiResource('authors', AuthorController::class);
+Route::apiResource('comments', CommentController::class);
+
+
+Route::get(
+    'articles/{article}/relationships/author',
+    [
+        'uses' => ArticleRelationshipController::class . '@author',
+        'as' => 'articles.relationships.author',
+    ]
+);
+Route::get(
+    'articles/{article}/author',
+    [
+        'uses' => ArticleRelationshipController::class . '@author',
+        'as' => 'articles.author',
+    ]
+);
+Route::get(
+    'articles/{article}/relationships/comments',
+    [
+        'uses' => ArticleRelationshipController::class . '@comments',
+        'as' => 'articles.relationships.comments',
+    ]
+);
+Route::get(
+    'articles/{article}/comments',
+    [
+        'uses' => ArticleRelationshipController::class . '@comments',
+        'as' => 'articles.comments',
+    ]
+);

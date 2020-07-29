@@ -6,12 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    public function people(){
-        return $this->belongsTo('App\People', 'author_id');
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo('App\People');
     }
 
-    public function articles(){
-        return $this->belongsTo('App\Article', 'article_id');
+    /**
+     * Comment belongs to Article.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function article()
+    {
+        return $this->belongsTo('App\Article');
     }
 
 }

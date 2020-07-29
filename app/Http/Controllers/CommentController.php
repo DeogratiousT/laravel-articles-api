@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
+use App\Comment;
+use App\Http\Resources\CommentResource;
+use App\Http\Resources\CommentsResource;
 use Illuminate\Http\Request;
-use App\Http\Resources\ArticleResource;
-use App\Http\Resources\ArticlesResource;
 
-class ArticleController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return new ArticlesResource(Article::with(['author', 'comments.author'])->paginate());
-        // return new ArticlesResource(Article::paginate());
+        return new CommentsResource(Comment::with(['author'])->paginate());
     }
 
     /**
@@ -44,22 +43,23 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Comment $comment)
     {
-        ArticleResource::withoutWrapping();
-        return new ArticleResource($article);
+        CommentResource::withoutWrapping();
+
+        return new CommentResource($comment);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -68,10 +68,10 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Article  $article
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, Comment $comment)
     {
         //
     }
@@ -79,10 +79,10 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Comment $comment)
     {
         //
     }
